@@ -10,10 +10,10 @@ import SwiftUI
 struct ContentView: View {
     
     @State private var purchaseAmount = ""
-    @State private var totalSpent = 0
+    @State private var totalSpent: Double = 0
     
     func AddToTotal() {
-        let purchaseAmountInt = Int(purchaseAmount) ?? 0
+        let purchaseAmountInt = Double(purchaseAmount) ?? 0
         totalSpent += purchaseAmountInt
 
     }
@@ -30,7 +30,7 @@ struct ContentView: View {
                     Text("Add Purchase")
                 }
             }
-            Text("\(totalSpent)")
+            Text("$\(totalSpent, specifier: "%.2f")")
         }
     }
 }
