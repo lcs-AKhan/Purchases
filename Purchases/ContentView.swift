@@ -18,19 +18,29 @@ struct ContentView: View {
 
     }
     
+    @State var purchaseList = [String]()
+    @State var item = 0
+    
     var body: some View {
         
-        Form {
-            Section {
-                TextField("Purchase cost", text: $purchaseAmount)
-                            .keyboardType(.decimalPad)
-                Button(action: {
-                    AddToTotal()
-                }) {
-                    Text("Add Purchase")
+        NavigationView() {
+            Form {
+                Section {
+                    TextField("Purchase cost", text: $purchaseAmount)
+                                .keyboardType(.decimalPad)
+                    Button(action: {
+                        AddToTotal()
+                        purchaseList.append(purchaseAmount)
+                    }) {
+                        Text("Add Purchase")
+                    }
                 }
+                Section{
+                    NavigationLink("Purchase List", destination: ListView())
+                }
+                Text("$\(totalSpent, specifier: "%.2f")")
             }
-            Text("$\(totalSpent, specifier: "%.2f")")
+            .navigationBarTitle("Purchases")
         }
     }
 }
