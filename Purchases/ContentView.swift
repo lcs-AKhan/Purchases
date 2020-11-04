@@ -8,11 +8,33 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State private var purchaseAmount = ""
+    @State private var totalSpent = 0
+    
+    func AddToTotal() {
+        let purchaseAmountInt = Int(purchaseAmount) ?? 0
+        totalSpent += purchaseAmountInt
+
+    }
+    
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        
+        Form {
+            Section {
+                TextField("Purchase cost", text: $purchaseAmount)
+                            .keyboardType(.decimalPad)
+                Button(action: {
+                    AddToTotal()
+                }) {
+                    Text("Add Purchase")
+                }
+            }
+            Text("\(totalSpent)")
+        }
     }
 }
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
