@@ -31,14 +31,14 @@ struct ContentView: View {
                                 .keyboardType(.decimalPad)
                     TextField("Purchase name", text: $name)
                     Button(action: {
-                        addToTotal()
-                        addToList()
+                        AddToTotal()
+                        AddToList()
                     }) {
                         Text("Add Purchase")
                     }
                 }
                 Section {
-                    NavigationLink("Purchase List", destination: ListView(items: $items))
+                    NavigationLink("Purchase List", destination: ListView(items: items))
                 }
                 Section(header: Text("Total Spent")) {
                     Text("$\(totalSpent, specifier: "%.2f")")
@@ -47,11 +47,11 @@ struct ContentView: View {
             .navigationBarTitle("Purchases")
         }
     }
-    func addToTotal() {
+    func AddToTotal() {
         let purchaseAmountInt = Double(purchaseAmount) ?? 0
         totalSpent += purchaseAmountInt
     }
-    func addToList() {
+    func AddToList() {
         items.append(PurchasedItem(purchasePrice: Double(purchaseAmount) ?? 0, name: name))
     }
 }

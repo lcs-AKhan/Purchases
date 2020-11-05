@@ -9,13 +9,13 @@ import SwiftUI
 
 struct ListView: View {
     
-    @Binding var items: [PurchasedItem]
+    var items: [PurchasedItem]
     
     var body: some View {
         Form {
             Section(header: Text("LIST OF PURCHASES")) {
                 List(items) { item in
-                    Text("\(item.purchasePrice)")
+                    Text("$\(item.purchasePrice, specifier: "%.2f") - \(item.name)")
                 }
             }
         }
@@ -25,5 +25,5 @@ struct ListView: View {
 //struct ListView_Previews: PreviewProvider {
 //    static var previews: some View {
 //        ListView()
-//    }
+//   }
 //}
