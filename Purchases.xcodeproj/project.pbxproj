@@ -58,6 +58,7 @@
 				D9E0F7B9255302B0004D0641 /* ContentView.swift */,
 				D9E0F7BB255302B4004D0641 /* Assets.xcassets */,
 				D9E0F7C0255302B4004D0641 /* Info.plist */,
+				D92E9CEB25535C1500BCF9B3 /* ListView.swift */,
 				D9E0F7BD255302B4004D0641 /* Preview Content */,
 			);
 			path = Purchases;
@@ -67,7 +68,6 @@
 			isa = PBXGroup;
 			children = (
 				D9E0F7BE255302B4004D0641 /* Preview Assets.xcassets */,
-				D92E9CEB25535C1500BCF9B3 /* ListView.swift */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
