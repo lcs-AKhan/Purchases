@@ -18,7 +18,10 @@ struct ContentView: View {
     @State private var purchaseAmount = ""
     @State private var totalSpent: Double = 0
     @State private var name = ""
-        
+    
+    @State private var budget = ""
+    @State private var budgetExceeds: Bool = false
+    
     @State private var items = [PurchasedItem]()
     
     
@@ -33,9 +36,13 @@ struct ContentView: View {
                     Button(action: {
                         AddToTotal()
                         AddToList()
+                        CheckBudget()
                     }) {
                         Text("Add Purchase")
                     }
+                }
+                Section {
+                    TextField("Budget", text: $budget)
                 }
                 Section {
                     NavigationLink("Purchase List", destination: ListView(items: items))
@@ -43,6 +50,9 @@ struct ContentView: View {
                 Section(header: Text("Total Spent")) {
                     Text("$\(totalSpent, specifier: "%.2f")")
                 }
+            }
+            .alert(isPresented: $budgetExceeds) {
+                Alert(title: Text("Warning"), message: Text("You have exceeded your budget!"), dismissButton: .default(Text("Okay")))
             }
             .navigationBarTitle("Purchases")
         }
@@ -53,6 +63,12 @@ struct ContentView: View {
     }
     func AddToList() {
         items.append(PurchasedItem(purchasePrice: Double(purchaseAmount) ?? 0, name: name))
+    }
+    func CheckBudget() {
+        let budgetAmount = Double(budget) ?? 100
+        if budgetAmount > totalSpent {
+            budgetExceeds = true
+        }
     }
 }
 
