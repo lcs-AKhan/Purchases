@@ -21,6 +21,7 @@ struct ContentView: View {
     
     @State private var budget = ""
     @State private var budgetExceeds = false
+    @State private var budgetAmountText = ""
         
     @State private var items = [PurchasedItem]()
     
@@ -31,6 +32,11 @@ struct ContentView: View {
             Form {
                 Section(header: Text("Budget")) {
                     TextField("Budget", text: $budget)
+                    Button(action: {
+                            budgetAmountText = budget
+                    }) {
+                        Text("Set Budget")
+                    }
                 }
                 Section(header: Text("Add a purchase")) {
                     TextField("Purchase cost", text: $purchaseAmount)
@@ -49,6 +55,7 @@ struct ContentView: View {
                 }
                 Section(header: Text("Total Spent")) {
                     Text("$\(totalSpent, specifier: "%.2f")")
+                    Text("Budget: $\(budgetAmountText)")
                 }
             }
             .alert(isPresented: $budgetExceeds) {
