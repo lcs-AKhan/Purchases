@@ -20,8 +20,8 @@ struct ContentView: View {
     @State private var name = ""
     
     @State private var budget = ""
-    @State private var budgetExceeds: Bool = false
-    
+    @State private var budgetExceeds = false
+        
     @State private var items = [PurchasedItem]()
     
     
@@ -29,6 +29,9 @@ struct ContentView: View {
         
         NavigationView() {
             Form {
+                Section(header: Text("Budget")) {
+                    TextField("Budget", text: $budget)
+                }
                 Section(header: Text("Add a purchase")) {
                     TextField("Purchase cost", text: $purchaseAmount)
                                 .keyboardType(.decimalPad)
@@ -42,9 +45,6 @@ struct ContentView: View {
                     }
                 }
                 Section {
-                    TextField("Budget", text: $budget)
-                }
-                Section {
                     NavigationLink("Purchase List", destination: ListView(items: items))
                 }
                 Section(header: Text("Total Spent")) {
@@ -52,7 +52,8 @@ struct ContentView: View {
                 }
             }
             .alert(isPresented: $budgetExceeds) {
-                Alert(title: Text("Warning"), message: Text("You have exceeded your budget!"), dismissButton: .default(Text("Okay")))
+                Alert(title: Text("Warning"), message: Text("You have exceeded your budget!"), dismissButton: .default(Text("Okay")) {
+                })
             }
             .navigationBarTitle("Purchases")
         }
@@ -66,12 +67,13 @@ struct ContentView: View {
     }
     func CheckBudget() {
         let budgetAmount = Double(budget) ?? 100
-        if budgetAmount > totalSpent {
+        if totalSpent > budgetAmount {
             budgetExceeds = true
+        } else {
+            budgetExceeds = false
         }
     }
 }
-
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
