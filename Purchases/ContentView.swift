@@ -73,7 +73,7 @@ struct ContentView: View {
         items.append(PurchasedItem(purchasePrice: Double(purchaseAmount) ?? 0, name: name))
     }
     func CheckBudget() {
-        let budgetAmount = Double(budget) ?? 100
+        let budgetAmount = Double(budget) ?? 100000000000000000000000000
         if totalSpent > budgetAmount {
             budgetExceeds = true
         } else {
