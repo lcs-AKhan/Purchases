@@ -60,7 +60,7 @@ struct ContentView: View {
                 Section {
                     // Reset Purchases Button
                     Button(action: {
-                        
+                        ResetPurchases()
                     }) {
                         Text("Reset Purchases")
                             .foregroundColor(.red)
@@ -88,6 +88,10 @@ struct ContentView: View {
         } else {
             budgetExceeds = false
         }
+    }
+    func ResetPurchases() {
+        totalSpent = 0
+        items = [PurchasedItem]()
     }
 }
 
