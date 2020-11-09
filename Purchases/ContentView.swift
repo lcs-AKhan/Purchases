@@ -33,7 +33,7 @@ struct ContentView: View {
                 Section(header: Text("Budget")) {
                     TextField("Budget", text: $budget)
                     Button(action: {
-                            budgetAmountText = budget
+                        budgetAmountText = budget
                     }) {
                         Text("Set Budget")
                     }
@@ -57,6 +57,15 @@ struct ContentView: View {
                     Text("$\(totalSpent, specifier: "%.2f")")
                     Text("Budget: $\(budgetAmountText)")
                 }
+                Section {
+                    // Reset Purchases Button
+                    Button(action: {
+                        
+                    }) {
+                        Text("Reset Purchases")
+                            .foregroundColor(.red)
+                    }
+                }
             }
             .alert(isPresented: $budgetExceeds) {
                 Alert(title: Text("Warning"), message: Text("You have exceeded your budget!"), dismissButton: .default(Text("Okay")) {
@@ -73,7 +82,7 @@ struct ContentView: View {
         items.append(PurchasedItem(purchasePrice: Double(purchaseAmount) ?? 0, name: name))
     }
     func CheckBudget() {
-        let budgetAmount = Double(budget) ?? 100000000000000000000000000
+        let budgetAmount = Double(budgetAmountText) ?? 100000000000000000000000000
         if totalSpent > budgetAmount {
             budgetExceeds = true
         } else {

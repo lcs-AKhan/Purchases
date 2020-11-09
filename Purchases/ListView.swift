@@ -15,7 +15,7 @@ struct ListView: View {
         Form {
             Section(header: Text("LIST OF PURCHASES")) {
                 List(items) { item in
-                    Text("$\(item.purchasePrice, specifier: "%.2f") - \(item.name)")
+                    Text("\(item.name) - \(item.purchasePrice, specifier: "%.2f")")
                 }
             }
         }
