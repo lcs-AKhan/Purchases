@@ -74,7 +74,7 @@ struct ContentView: View {
                             .foregroundColor(.red)
                     }
                     .alert(isPresented: $resetAlertShowing) {
-                        Alert(title: Text("Reset Purchases?") , primaryButton: .default(Text("Continue")) {
+                        Alert(title: Text("Reset Purchases?"), message: Text("This will delete the total amount of money you spent along with every item in your list."), primaryButton: .default(Text("Continue")) {
                             ResetPurchases()
                         }, secondaryButton: .cancel())
                     }
