@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// STRUCT FOR EACH PURCHASED ITEM
+
 struct PurchasedItem: Identifiable {
     var id = UUID()
     let purchasePrice: Double
@@ -14,6 +16,8 @@ struct PurchasedItem: Identifiable {
 }
 
 struct ContentView: View {
+    
+    // VARIABLES
     
     @State private var purchaseAmount = ""
     @State private var totalSpent: Double = 0
@@ -25,6 +29,7 @@ struct ContentView: View {
         
     @State private var items = [PurchasedItem]()
     
+    @State private var resetAlertShowing = false
     
     var body: some View {
         
@@ -32,6 +37,7 @@ struct ContentView: View {
             Form {
                 Section(header: Text("Budget")) {
                     TextField("Budget", text: $budget)
+                    // Set A Budget Button
                     Button(action: {
                         budgetAmountText = budget
                     }) {
@@ -42,6 +48,7 @@ struct ContentView: View {
                     TextField("Purchase cost", text: $purchaseAmount)
                                 .keyboardType(.decimalPad)
                     TextField("Purchase name", text: $name)
+                    // Add a Purchase Button
                     Button(action: {
                         AddToTotal()
                         AddToList()
@@ -53,6 +60,7 @@ struct ContentView: View {
                 Section {
                     NavigationLink("Purchase List", destination: ListView(items: items))
                 }
+                // Display of Total Spent and Budget
                 Section(header: Text("Total Spent")) {
                     Text("$\(totalSpent, specifier: "%.2f")")
                     Text("Budget: $\(budgetAmountText)")
@@ -60,13 +68,17 @@ struct ContentView: View {
                 Section {
                     // Reset Purchases Button
                     Button(action: {
-                        ResetPurchases()
+                        self.resetAlertShowing = true
                     }) {
                         Text("Reset Purchases")
                             .foregroundColor(.red)
                     }
+                    .alert(isPresented: $resetAlertShowing) {
+                        Alert(title: Text("Reset Purchases?") , primaryButton: .default(Text("Continue")), secondaryButton: .cancel())
+                    }
                 }
             }
+            // ALERTS
             .alert(isPresented: $budgetExceeds) {
                 Alert(title: Text("Warning"), message: Text("You have exceeded your budget!"), dismissButton: .default(Text("Okay")) {
                 })
@@ -74,6 +86,7 @@ struct ContentView: View {
             .navigationBarTitle("Purchases")
         }
     }
+    // FUNCTIONS
     func AddToTotal() {
         let purchaseAmountInt = Double(purchaseAmount) ?? 0
         totalSpent += purchaseAmountInt
@@ -82,7 +95,7 @@ struct ContentView: View {
         items.append(PurchasedItem(purchasePrice: Double(purchaseAmount) ?? 0, name: name))
     }
     func CheckBudget() {
-        let budgetAmount = Double(budgetAmountText) ?? 100000000000000000000000000
+        let budgetAmount = Double(budgetAmountText) ?? 10000000000000000
         if totalSpent > budgetAmount {
             budgetExceeds = true
         } else {
