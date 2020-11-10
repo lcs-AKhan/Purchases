@@ -74,7 +74,9 @@ struct ContentView: View {
                             .foregroundColor(.red)
                     }
                     .alert(isPresented: $resetAlertShowing) {
-                        Alert(title: Text("Reset Purchases?") , primaryButton: .default(Text("Continue")), secondaryButton: .cancel())
+                        Alert(title: Text("Reset Purchases?") , primaryButton: .default(Text("Continue")) {
+                            ResetPurchases()
+                        }, secondaryButton: .cancel())
                     }
                 }
             }
